@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A tribute to Goddess Saraswati, her significance, legends, and cultural celebrations.">
+    <meta name="keywords" content="Saraswati, Goddess Saraswati, Hindu deity, Vasant Panchami, wisdom, art, music">
+    <title>Saraswati Mata</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        header {
+            background-color: #ffcc00;
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .image-gallery {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .image-gallery img {
+            width: 30%;
+            margin: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        audio {
+            display: block;
+            margin: 20px auto;
+            width: 60%;
+            border: 2px solid #ffcc00;
+            border-radius: 5px;
+        }
+
+        .comment-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .comment-section h2 {
+            margin-top: 0;
+        }
+
+        .comment-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .comment-section button {
+            background-color: #ffcc00;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Countdown Timer */
+        #countdown {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6600;
+        }
+
+        /* File upload styles */
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            padding: 10px;
+            background-color: #ffcc00;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .file-label:hover {
+            background-color: #ff9900;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Saraswati Mata</h1>
+        <p>The Goddess of Knowledge, Music, and Wisdom</p>
+    </header>
+
+    <!-- Virtual Saraswati Puja Section -->
+    <section class="content-section">
+        <h2>Virtual Saraswati Puja</h2>
+        <p>Offer your prayers and light a virtual lamp for Goddess Saraswati:</p>
+        <form id="puja-form">
+            <textarea id="prayer-request" placeholder="Write your prayer here..." required></textarea><br>
+            <button type="button" onclick="submitPrayer()">Offer Prayer</button>
+        </form>
+    </section>
+
+    <!-- Saraswati Quiz -->
+    <section class="content-section">
+        <h2>Saraswati Quiz</h2>
+        <p>Test your knowledge about Goddess Saraswati:</p>
+        <ul>
+            <li>What is the name of Goddess Saraswati's vehicle? 
+                <input type="text" id="quiz-answer1" placeholder="Your answer">
+            </li>
+            <li>Which instrument does Goddess Saraswati play?
+                <input type="text" id="quiz-answer2" placeholder="Your answer">
+            </li>
+            <button type="button" onclick="checkQuiz()">Submit Quiz</button>
+        </ul>
+    </section>
+
+    <!-- Countdown Timer Section -->
+    <section class="content-section">
+        <h2>Countdown to Saraswati Puja</h2>
+        <div id="countdown"></div>
+    </section>
+
+    <!-- PDF Upload Section -->
+    <section class="content-section">
+        <h2>Upload and Share PDFs</h2>
+        <input type="file" id="pdf-upload" accept=".pdf">
+        <label for="pdf-upload" class="file-label">Click to Upload a PDF</label>
+    </section>
+
+    <!-- Comment Section -->
+    <section class="comment-section">
+        <h2>Leave a Comment</h2>
+        <textarea id="comment-text" placeholder="Write your comment here..."></textarea><br>
+        <button type="button" onclick="submitComment()">Submit Comment</button>
+        <div id="comment-list"></div>
+    </section>
+
+    <!-- Social Media Share Buttons -->
+    <section class="content-section">
+        <h2>Share this Website</h2>
+        <button onclick="shareOnWhatsapp()">Share on WhatsApp</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Saraswati Mata Tribute | All rights reserved</p>
+    </footer>
+
+    <script>
+        // Countdown Timer Function
+        var countdownDate = new Date("Feb 2, 2025 00:00:00").getTime();
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countdownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "It's Saraswati Puja!";
+            }
+        }, 1000);
+
+        // Share on WhatsApp Function
+        function shareOnWhatsapp() {
+            var text = "Join me in celebrating Goddess Saraswati on this special website!";
+            var url = window.location.href;
+            var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text + " " + url);
+            window.open(whatsappUrl, "_blank");
+        }
+
+        // Function to Submit Prayer Request
+        function submitPrayer() {
+            var prayerText = document.getElementById("prayer-request").value;
+            if (prayerText.trim()) {
+                alert("Your prayer has been offered to Saraswati Mata!");
+                document.getElementById("prayer-request").value = "";
+            } else {
+                alert("Please write a prayer before submitting.");
+            }
+        }
+
+        // Function to Check Quiz Answers
+        function checkQuiz() {
+            var answer1 = document.getElementById("quiz-answer1").value.toLowerCase();
+            var answer2 = document.getElementById("quiz-answer2").value.toLowerCase();
+            var score = 0;
+            
+            if (answer1 === "swan") score++;
+            if (answer2 === "veena") score++;
+
+            alert("Your score is: " + score + "/2");
+        }
+
+        // Function to Submit Comment
+        function submitComment() {
+            var comment = document.getElementById("comment-text").value.trim();
+            if (comment) {
+                // Simple Profanity Filter
+                var badWords = ["badword1", "badword2"]; // Replace with actual list
+                var isBadComment = badWords.some(word => comment.toLowerCase().includes(word));
+                
+                if (isBadComment) {
+                    alert("Your comment contains inappropriate language and cannot be posted.");
+                } else {
+                    document.getElementById("comment-list").innerHTML += "<p>" + comment + "</p>";
+                    document.getElementById("comment-text").value = "";
+                }
+            } else {
+                alert("Please write a comment.");
+            }
+        }
+    </script>
+</body>
+</html>
